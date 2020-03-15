@@ -6,7 +6,6 @@ public class DrinkMakerStat {
     public int hotOption;
     public double earned;
 
-
     public void add(DrinkMakerStat drinkMakerStat) {
         if (drinkMakerStat != null){
             served+=drinkMakerStat.served;

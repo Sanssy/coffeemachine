@@ -62,8 +62,8 @@ public class CustomerOrder {
 
             if (stick)
                 translatedOrder.append("0");
-
-            Reporting.add(drink,hotOption);
+            System.out.println("HERE");
+            Reporting.addToStats(drink,hotOption);
             return translatedOrder.toString();
         } else {
             return translatedOrder.append("Missing money : ").append(String.format("%.2f",drink.price - money)).toString();
