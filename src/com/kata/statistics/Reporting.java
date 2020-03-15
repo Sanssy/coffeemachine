@@ -1,13 +1,16 @@
-package com.kata;
+package com.kata.statistics;
+
+import com.kata.drinkMaker.Drink;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Reporting {
 
-    private static Map<Drink,DrinkMakerStat> statistics = new EnumMap<>(Drink.class);
+    private static Map<Drink, DrinkMakerStat> statistics = new EnumMap<>(Drink.class);
 
-    public static void addToStats(Drink drink, boolean hotOption) {
+    public static void addToStatistics(Drink drink, boolean hotOption) {
         if (!statistics.containsKey(drink))
             statistics.put(drink, new DrinkMakerStat());
         if (hotOption)
@@ -16,16 +19,20 @@ public class Reporting {
         statistics.get(drink).earned+=drink.price;
     }
 
+    public static DrinkMakerStat stats(final Drink drink){
+        return Optional.ofNullable(statistics.get(drink)).orElse(new DrinkMakerStat());
+    }
+
     public static void viewReport() {
         DrinkMakerStat statPerDrink = new DrinkMakerStat();
         for (final Drink drink : Drink.values()) {
             statPerDrink.add(statistics.get(drink));
-            System.out.println(buildDrinkStat(drink));
+            System.out.println(createDrinkStat(drink));
         }
         System.out.println("RESUME |##########| " + displayDrinkStats(statPerDrink));
     }
 
-    private static String buildDrinkStat(Drink drink) {
+    private static String createDrinkStat(Drink drink) {
         StringBuilder drinkStat = new StringBuilder();
         DrinkMakerStat stat;
 
