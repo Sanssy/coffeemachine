@@ -8,7 +8,7 @@ public class Reporting {
     private static Map<Drink,DrinkMakerStat> statistics = new EnumMap<>(Drink.class);
 
     public static void addToStats(Drink drink, boolean hotOption) {
-        if (!statistics.containsKey(drink.id))
+        if (!statistics.containsKey(drink))
             statistics.put(drink, new DrinkMakerStat());
         if (hotOption)
             statistics.get(drink).hotOption++;
@@ -16,7 +16,7 @@ public class Reporting {
         statistics.get(drink).earned+=drink.price;
     }
 
-    public static void showReport() {
+    public static void viewReport() {
         DrinkMakerStat statPerDrink = new DrinkMakerStat();
         for (final Drink drink : Drink.values()) {
             statPerDrink.add(statistics.get(drink));
@@ -39,12 +39,9 @@ public class Reporting {
 
     private static String displayDrinkStats(DrinkMakerStat drinkMakerStat){
         StringBuilder drinkLine = new StringBuilder();
-        drinkLine.append("Served : ").append(drinkMakerStat.served)
-                .append(" |###|").append(" Extra hot : ")
-                .append(drinkMakerStat.hotOption)
-                .append(" |###|").append(" Earned money : ")
-                .append(String.format("%.2f",drinkMakerStat.earned));
-
-                return drinkLine.toString();
+        drinkLine.append("Served : ").append(drinkMakerStat.served).append(" |###|")
+                .append(" Extra hot : ").append(drinkMakerStat.hotOption).append(" |###|")
+                .append(" Earned money : ").append(String.format("%.2f",drinkMakerStat.earned));
+        return drinkLine.toString();
     }
 }

@@ -62,7 +62,6 @@ public class CustomerOrder {
 
             if (stick)
                 translatedOrder.append("0");
-            System.out.println("HERE");
             Reporting.addToStats(drink,hotOption);
             return translatedOrder.toString();
         } else {

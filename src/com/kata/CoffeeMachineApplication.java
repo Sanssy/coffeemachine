@@ -38,18 +38,20 @@ public class CoffeeMachineApplication {
         CustomerOrder order11 =  new CustomerOrder(Drink.TEA,true,1,0.8);
         CustomerOrder order12 =  new CustomerOrder(Drink.COFFEE,true,0.4);
         CustomerOrder order13 =  new CustomerOrder(Drink.CHOCOLATE,true,2,0.36);
+        CustomerOrder order14 =  new CustomerOrder(Drink.CHOCOLATE,true,2,1.36);
 
         System.out.println(order10.sendToDrinkMaker());
         System.out.println(order11.sendToDrinkMaker());
         System.out.println(order12.sendToDrinkMaker());
         System.out.println(order13.sendToDrinkMaker());
+        System.out.println(order14.sendToDrinkMaker());
 
         order12.addSugar(2);
         System.out.println(order12.sendToDrinkMaker());
 
         System.out.println("################################# FOURTH ITERATION #################################");
 
-        Reporting.showReport();
+        Reporting.viewReport();
 
     }
 
