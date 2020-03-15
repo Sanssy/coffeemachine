@@ -1,4 +1,5 @@
 package com.kata;
+import java.util.Date;
 
 public class CustomerOrder {
 
@@ -44,8 +45,9 @@ public class CustomerOrder {
 
     String sendToDrinkMaker(){
         final StringBuilder translatedOrder = new StringBuilder();
+        boolean hasEnoughMoney = drink.price <= money;
 
-        if (drink.price <= money){
+        if (hasEnoughMoney){
             translatedOrder.append(drink.id);
 
             if (hotOption && drink.id != 'O')
@@ -61,6 +63,7 @@ public class CustomerOrder {
             if (stick)
                 translatedOrder.append("0");
 
+            Reporting.add(drink,hotOption);
             return translatedOrder.toString();
         } else {
             return translatedOrder.append("Missing money : ").append(String.format("%.2f",drink.price - money)).toString();

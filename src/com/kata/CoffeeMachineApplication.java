@@ -46,6 +46,11 @@ public class CoffeeMachineApplication {
 
         order12.addSugar(2);
         System.out.println(order12.sendToDrinkMaker());
+
+        System.out.println("################################# FOURTH ITERATION #################################");
+
+        Reporting.showReport();
+
     }
 
 }
