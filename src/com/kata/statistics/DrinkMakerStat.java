@@ -17,10 +17,4 @@ public class DrinkMakerStat {
     public int timesServed() {
         return served;
     }
-
-    public int hotServed() {
-        return hotOption;
-    }
-
-
 }

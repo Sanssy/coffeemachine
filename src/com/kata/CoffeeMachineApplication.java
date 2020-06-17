@@ -33,29 +33,29 @@ public class CoffeeMachineApplication {
             int maxAvailable;
             switch (Drink.getDrink(s)){
                 case CHOCOLATE:
-                    maxAvailable = 0;
+                    maxAvailable = 10;
                     break;
                 case COFFEE:
-                    maxAvailable = 2;
+                    maxAvailable = 12;
                     break;
                 case ORANGE_JUICE:
-                    maxAvailable = 1;
+                    maxAvailable = 11;
                     break;
                 case TEA:
-                    maxAvailable = 3;
+                    maxAvailable = 31;
                     break;
                 default:
-                    return false;
+                    throw new IllegalStateException();
             }
             return Reporting.stats(Drink.getDrink(s)).timesServed() >= maxAvailable;
         },messageObject);
 
         System.out.println("################################# FIRST ITERATION #################################");
 
-        CustomerOrder order01 = new CustomerOrder(Drink.TEA,1);
-        CustomerOrder order02 = new CustomerOrder(Drink.COFFEE, 2);
-        CustomerOrder order03 = new CustomerOrder(Drink.TEA);
-        CustomerOrder order04 = new CustomerOrder(CHOCOLATE,2);
+        CustomerOrder order01 = new CustomerOrder(Drink.TEA,1,1);
+        CustomerOrder order02 = new CustomerOrder(Drink.COFFEE, 2,4);
+        CustomerOrder order03 = new CustomerOrder(Drink.TEA,1.3);
+        CustomerOrder order04 = new CustomerOrder(CHOCOLATE,2,4);
 
         System.out.println("Drink maker makes 1 tea with 1 sugar and a stick -> In machine maker language : " + order01.sendToDrinkMaker());
         System.out.println("Drink maker makes 1 coffee with 2 sugar and a stick -> In machine maker language : " +order02.sendToDrinkMaker());

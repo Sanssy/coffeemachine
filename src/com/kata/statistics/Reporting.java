@@ -2,18 +2,19 @@ package com.kata.statistics;
 
 import com.kata.drinkMaker.Drink;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class Reporting {
 
-    private static Map<Drink, DrinkMakerStat> statistics = new EnumMap<>(Drink.class);
+    private static final Map<Drink, DrinkMakerStat> statistics = new EnumMap<>(Drink.class);
 
     public static void addToStatistics(Drink drink, boolean hotOption) {
         if (!statistics.containsKey(drink))
             statistics.put(drink, new DrinkMakerStat());
-        if (hotOption)
+        if (hotOption && drink.id != Drink.ORANGE_JUICE.id)
             statistics.get(drink).hotOption++;
         statistics.get(drink).served++;
         statistics.get(drink).earned+=drink.price;
@@ -25,30 +26,21 @@ public class Reporting {
 
     public static void viewReport() {
         DrinkMakerStat statPerDrink = new DrinkMakerStat();
-        for (final Drink drink : Drink.values()) {
+        Arrays.stream(Drink.values()).forEach(drink-> {
             statPerDrink.add(statistics.get(drink));
             System.out.println(createDrinkStat(drink));
-        }
+        });
         System.out.println("RESUME |##########| " + displayDrinkStats(statPerDrink));
     }
 
     private static String createDrinkStat(Drink drink) {
-        StringBuilder drinkStat = new StringBuilder();
-        DrinkMakerStat stat;
-
-        if (statistics.containsKey(drink))
-            stat = statistics.get(drink);
-        else
-            stat = new DrinkMakerStat();
-
-        return drinkStat.append(drink.name()).append(" |##########| ").append(displayDrinkStats(stat)).toString();
+        DrinkMakerStat drinkStat = statistics.containsKey(drink) ? statistics.get(drink) : new DrinkMakerStat();
+        return drink.name() + " |##########| " + displayDrinkStats(drinkStat);
     }
 
     private static String displayDrinkStats(DrinkMakerStat drinkMakerStat){
-        StringBuilder drinkLine = new StringBuilder();
-        drinkLine.append("Served : ").append(drinkMakerStat.served).append(" |###|")
-                .append(" Extra hot : ").append(drinkMakerStat.hotOption).append(" |###|")
-                .append(" Earned money : ").append(String.format("%.2f",drinkMakerStat.earned));
-        return drinkLine.toString();
+        return "Served : " + drinkMakerStat.served + " |###| " +
+               "Extra hot : " + drinkMakerStat.hotOption + " |###| " +
+               "Earned money : " + String.format("%.2f", drinkMakerStat.earned);
     }
 }
